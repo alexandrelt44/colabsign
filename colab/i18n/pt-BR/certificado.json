@@ -47,7 +47,6 @@
   "Identified by: ${checks.join(\", \")}": "Identificado por: ${checks.join(\", \")}",
   "Meaning confirmed by the signer: \"${part11.meaningStatement}\"": "Significado confirmado pelo signatário: “${part11.meaningStatement}”",
   "(disclosure ${consented.metadata.disclosureVersion})": "(aviso ${consented.metadata.disclosureVersion})",
-  "Signature adopted by: ${methods.join(\", \")}": "Assinatura feita por: ${methods.join(\", \")}",
   "${approver ? \"Approved\" : \"Signed\"} from IP ${signed.ipAddress}": "${approver ? \"Approved\" : \"Signed\"} do IP ${signed.ipAddress}",
   "Approved": "Aprovado",
   "Signed": "Assinado",
@@ -90,5 +89,6 @@
   "Agreed to use electronic records and signatures at ${formatAuditTimestamp(consented.createdAt)}${typeof consented.metadata?.disclosureVersion === \"string\" ? ` (disclosure ${consented.metadata.disclosureVersion})` : \"\"}": "Concordou em usar documentos e assinaturas eletrônicos em ${formatAuditTimestamp(consented.createdAt)}${typeof consented.metadata?.disclosureVersion === \"string\" ? ` (disclosure ${consented.metadata.disclosureVersion})` : \"\"}",
   "The envelope was ${STATUS_WORDS[result.status]}${result.finishedAt !== null ? ` on ${formatUtcTimestamp(result.finishedAt)}` : \"\"}.": "O documento foi ${STATUS_WORDS[result.status]}${result.finishedAt !== null ? ` on ${formatUtcTimestamp(result.finishedAt)}` : \"\"}.",
   "The envelope was ${STATUS_WORDS[result.status]}${result.finishedAt !== null ? ` on ${formatUtcTimestamp(result.finishedAt)}` : \"\"} with ${result.signerCount} signer${result.signerCount === 1 ? \"\" : \"s\"}${result.approverCount ? ` and ${result.approverCount} approver${result.approverCount === 1 ? \"\" : \"s\"}` : \"\"}. Envelope ID ${result.envelopeId}.": "O documento foi ${STATUS_WORDS[result.status]}${result.finishedAt !== null ? ` on ${formatUtcTimestamp(result.finishedAt)}` : \"\"}, com ${result.signerCount} signatário${result.signerCount === 1 ? \"\" : \"s\"}${result.approverCount ? ` and ${result.approverCount} approver${result.approverCount === 1 ? \"\" : \"s\"}` : \"\"}. ID do documento: ${result.envelopeId}.",
-  " and ${result.approverCount} approver${result.approverCount === 1 ? \"\" : \"s\"}": " e aprovadores: ${result.approverCount}"
+  " and ${result.approverCount} approver${result.approverCount === 1 ? \"\" : \"s\"}": " e aprovadores: ${result.approverCount}",
+  "Signature adopted by: ${methods.map((m) => (({ typed: \"digitada\", drawn: \"desenhada\", auto: \"automática\" } as Record<string, string>)[m] ?? m)).join(\", \")}": "Assinatura: ${methods.map((m) => (({ typed: \"digitada\", drawn: \"desenhada\", auto: \"automática\" } as Record<string, string>)[m] ?? m)).join(\", \")}"
 }

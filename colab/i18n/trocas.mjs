@@ -61,10 +61,37 @@ const EMAILS = `({
 
 export default {
 
+  "src/components/envelopes/review-shell.tsx": [
+    [
+      'const signers = `${signerCount} ${signerCount === 1 ? "signer" : "signers"}`;',
+      'const signers = `${signerCount} ${signerCount === 1 ? "signatário" : "signatários"}`;',
+    ],
+    [
+      '? `${signers} and ${approverCount} ${approverCount === 1 ? "approver" : "approvers"}`',
+      '? `${signers} e ${approverCount} ${approverCount === 1 ? "aprovador" : "aprovadores"}`',
+    ],
+  ],
+
   // Datas do painel: pt-BR, fuso de São Paulo.
   "src/lib/envelopes.ts": [
     ['new Intl.DateTimeFormat("en-US", {', 'new Intl.DateTimeFormat("pt-BR", {', 3],
     ['timeZone: "UTC",', `timeZone: ${FUSO},`, 3],
+    [
+      `return \`\${String(signedCount)} of \${String(signers.length)} \${
+      signers.some((signer) => signer.role === "approver") ? "done" : "signed"
+    }\`;`,
+      `return \`\${String(signedCount)} de \${String(signers.length)} \${
+      signers.some((signer) => signer.role === "approver") ? "concluídos" : "assinados"
+    }\`;`,
+    ],
+    [
+      'return `${pluralize(assignedFieldCount, "field")} completed`;',
+      'return `${pluralize(assignedFieldCount, "campo")} preenchido${assignedFieldCount === 1 ? "" : "s"}`;',
+    ],
+    [
+      'return `${pluralize(assignedFieldCount, "field")} assigned`;',
+      'return `${pluralize(assignedFieldCount, "campo")}`;',
+    ],
     [
       '`${pluralize(signers.length, "signer")} · ${pluralize(fields.length, "field")} placed`',
       '`${pluralize(signers.length, "signatário")} · ${pluralize(fields.length, "campo")}`',
@@ -152,6 +179,16 @@ const COLAB_FILTRO_PT: Record<string, string> = {
   "src/app/layout.tsx": [['<html lang="en"', '<html lang="pt-BR"']],
 
   "src/lib/services/pdf-finalize.ts": [
+    [
+      `if (event.actorType !== "signer") {
+    return event.actorEmail ?? event.actorType;`,
+      `if (event.actorType !== "signer") {
+    return event.actorEmail ?? (({ sender: "remetente", system: "sistema" } as Record<string, string>)[event.actorType] ?? event.actorType);`,
+    ],
+    [
+      'details.push(`Signature adopted by: ${methods.join(", ")}`);',
+      'details.push(`Signature adopted by: ${methods.map((m) => (({ typed: "digitada", drawn: "desenhada", auto: "automática" } as Record<string, string>)[m] ?? m)).join(", ")}`);',
+    ],
     [
       'return value.toISOString().replace(".000Z", " UTC");',
       `return \`\${${SP_DATA_HORA}.format(value).replace(", ", " ")} (horário de Brasília)\`;`,

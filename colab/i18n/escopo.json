@@ -61,7 +61,6 @@
   "src/lib/two-factor-view.ts",
   "src/lib/field-choices.ts",
   "src/lib/prepare-shortcuts.ts",
-  "src/lib/envelope-access.ts",
   "src/lib/services/document-import.ts",
   "src/lib/draft-pdf-cache.ts",
   "src/app/api/envelopes/route.ts"

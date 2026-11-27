@@ -4,8 +4,8 @@
 import { chmodSync, mkdirSync, writeFileSync } from "node:fs";
 import { SITE, connect, newPage, shot, signInWithPassword } from "./lib.mjs";
 
-const SECRETS = "/root/colabsign-test/secrets";
-const WHSEC = "/root/colabsign-test/src/colab/test/out/whsec";
+const SECRETS = `${process.env.TESTE_DIR || "/root/colabsign-test"}/secrets`;
+const WHSEC = `${process.env.TESTE_DIR || "/root/colabsign-test"}/src/colab/test/out/whsec`;
 mkdirSync(SECRETS, { recursive: true, mode: 0o700 });
 
 function keep(path, value) {
@@ -33,7 +33,7 @@ await keyBox.evaluate(
 );
 await page
   .locator('[data-testid="new-api-key"]')
-  .screenshot({ path: "/root/colabsign-test/out/04-chave-criada.png" });
+  .screenshot({ path: `${process.env.TESTE_DIR || "/root/colabsign-test"}/out/04-chave-criada.png` });
 await page
   .locator('[data-testid="new-api-key"] button', { hasText: "Done" })
   .click()
@@ -73,6 +73,6 @@ const panel = page
   .filter({ has: page.locator('ul[aria-label="Webhook endpoints"]') })
   .last();
 await panel
-  .screenshot({ path: "/root/colabsign-test/out/04-webhook-endpoint.png" })
+  .screenshot({ path: `${process.env.TESTE_DIR || "/root/colabsign-test"}/out/04-webhook-endpoint.png` })
   .catch(async () => shot(page, "04-configuracoes"));
 await browser.close();

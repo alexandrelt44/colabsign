@@ -235,6 +235,7 @@ function candidates(file, source) {
           start,
           end: start + core.length,
           key: collapse(core),
+          jsxText: true,
           jsxAttr: false,
           render: (pt) => pt,
         });
@@ -422,7 +423,7 @@ for (const file of files) {
         usadas.add(local.has(c.key) ? `${file}::${c.key}` : c.key);
         edits.push({ ...c, text: c.render(pt, where) });
       } else if (
-        looksHuman(c.key) &&
+        (c.jsxText ? /[A-Za-z]{2,}/.test(c.key.replace(/&[a-z]+;/g, "")) : looksHuman(c.key)) &&
         !ignorar.has(c.key) &&
         !textosDasTrocas.some((t) => t.includes(source.slice(c.start, c.end)))
       ) {

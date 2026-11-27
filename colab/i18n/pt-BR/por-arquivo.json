@@ -23,11 +23,16 @@
   "src/components/envelopes/review-shell.tsx": {
     "days.": "dias.",
     "to act": "agir",
-    "to sign": "assinar"
+    "to sign": "assinar",
+    "pages -": "página(s) -",
+    "days": "dias"
   },
   "src/components/envelopes/prepare-live-shell.tsx": {
     "Signature": "Assinatura",
-    "Delete": "Excluir"
+    "Delete": "Excluir",
+    "for": "para",
+    "field": "campo",
+    "placed": "colocado(s)"
   },
   "src/lib/upload-validation.ts": {
     "this pdf is password-protected or encrypted. please upload an unlocked pdf.": "este pdf tem senha ou está criptografado. envie um pdf sem bloqueio.",
@@ -44,9 +49,44 @@
     "envelopes": "documentos",
     "row": "linha",
     "rows": "linhas",
-    "${name} name, ${name} email": "${name} name, ${name} email"
+    "${name} name, ${name} email": "${name} name, ${name} email",
+    "sent": "enviado(s)",
+    "days": "dias"
   },
   "src/components/templates/templates-shell.tsx": {
-    "Delete": "Excluir"
+    "Delete": "Excluir",
+    "Delete this template?": "Excluir este modelo?"
+  },
+  "src/lib/envelopes.ts": {
+    "Checkbox": "Checkbox",
+    "Date": "Date",
+    "Dropdown": "Dropdown",
+    "Initials": "Initials",
+    "Name": "Name",
+    "Number": "Number",
+    "Text": "Text"
+  },
+  "src/lib/two-factor-view.ts": {
+    "Managed by identity provider": "Managed by identity provider",
+    "On": "On",
+    "Off": "Off"
+  },
+  "src/components/auth/login-shell.tsx": {
+    "or": "ou",
+    "Create a new password": "Crie uma senha nova"
+  },
+  "src/components/auth/signup-shell.tsx": {
+    "Create account": "Criar conta",
+    "Create your account": "Crie sua conta",
+    "or": "ou"
+  },
+  "src/components/envelopes/envelope-detail-shell.tsx": {
+    "events": "eventos",
+    "Delete draft": "Excluir rascunho",
+    "Delete envelope": "Excluir documento",
+    "total": "no total"
+  },
+  "src/components/envelopes/signers-shell.tsx": {
+    "(optional)": "(opcional)"
   }
 }

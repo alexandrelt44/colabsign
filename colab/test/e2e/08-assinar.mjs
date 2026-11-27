@@ -10,11 +10,11 @@ const link = signingLinkFor(email);
 const browser = await connect();
 
 async function consent(page) {
-  const agree = page.locator("button", { hasText: "Agree and continue" });
+  const agree = page.locator("button", { hasText: /Agree and continue|Concordar e continuar/ });
   if (!(await agree.count())) return;
   for (const b of await page.locator('[role="dialog"] [role="checkbox"]').all())
     await b.click();
-  await page.locator("button", { hasText: "Agree and continue" }).click();
+  await page.locator("button", { hasText: /Agree and continue|Concordar e continuar/ }).click();
   await page.waitForTimeout(1200);
 }
 
@@ -35,19 +35,19 @@ for (const width of [1440, 390]) {
   await shot(page, `08-${ref}-${width}-documento`, false);
   if (width === signAt) {
     await page
-      .locator("button", { hasText: /^Sign$/ })
+      .locator("button", { hasText: /^(Sign|Assinar)$/ })
       .first()
       .click();
-    await page.locator("button", { hasText: "Apply signature" }).click();
+    await page.locator("button", { hasText: /Apply signature|Usar assinatura/ }).click();
     await page.waitForTimeout(1200);
     await shot(page, `08-${ref}-${width}-assinado-antes-de-concluir`, false);
     await page
-      .locator("button", { hasText: /^Finish$/ })
+      .locator("button", { hasText: /^(Finish|Concluir)$/ })
       .first()
       .click();
     await page.waitForTimeout(2000);
     const confirm = page.locator('[role="dialog"] button', {
-      hasText: /Finish|Sign|Confirm|Submit/,
+      hasText: /Finish|Sign|Confirm|Submit|Concluir|Assinar/,
     });
     if (await confirm.count()) {
       console.log("confirmação:", await confirm.allInnerTexts());

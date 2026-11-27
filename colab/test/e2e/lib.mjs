@@ -4,8 +4,8 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { chromium } from "playwright-core";
 
 export const SITE = process.env.SITE || "http://127.0.0.1:3000";
-export const OUT = process.env.OUT || "/root/colabsign-test/out";
-export const OUTBOX = process.env.OUTBOX || "/root/colabsign-test/outbox";
+export const OUT = process.env.OUT || `${process.env.TESTE_DIR || "/root/colabsign-test"}/out`;
+export const OUTBOX = process.env.OUTBOX || `${process.env.TESTE_DIR || "/root/colabsign-test"}/outbox`;
 export const STATE = `${OUT}/state.json`;
 mkdirSync(OUT, { recursive: true });
 

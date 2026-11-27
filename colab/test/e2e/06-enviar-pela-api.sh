@@ -3,9 +3,9 @@
 # fictícios, em ordem. A chave fica em arquivo 600 e vai por -H @arquivo,
 # então não aparece na linha de comando nem no log.
 set -euo pipefail
-OUT=/root/colabsign-test/out
+OUT=${TESTE_DIR:-/root/colabsign-test}/out
 H=$(mktemp); chmod 600 "$H"; trap 'rm -f "$H"' EXIT
-printf 'Authorization: Bearer %s\n' "$(cat /root/colabsign-test/secrets/api-key)" > "$H"
+printf 'Authorization: Bearer %s\n' "$(cat ${TESTE_DIR:-/root/colabsign-test}/secrets/api-key)" > "$H"
 API=http://127.0.0.1:3000/api/v1
 
 echo "== GET /me"; curl -s "$API/me" -H @"$H" | tee "$OUT/api-me.json"; echo

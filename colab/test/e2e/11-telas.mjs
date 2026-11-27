@@ -10,7 +10,7 @@ import {
   signInWithPassword,
 } from "./lib.mjs";
 
-const key = readFileSync("/root/colabsign-test/secrets/api-key", "utf8").trim();
+const key = readFileSync(`${process.env.TESTE_DIR || "/root/colabsign-test"}/secrets/api-key`, "utf8").trim();
 const done = JSON.parse(
   readFileSync(`${OUT}/api-envelope-criado.json`, "utf8"),
 );
