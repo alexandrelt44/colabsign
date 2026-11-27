@@ -1,0 +1,22 @@
+# Provedor OIDC de teste (Dex), no papel do ColabAuth/WorkOS. Só para a
+# vps-wp-old: usuários e segredo fictícios.
+issuer: http://127.0.0.1:5556/dex
+storage:
+  type: memory
+web:
+  http: 0.0.0.0:5556
+oauth2:
+  skipApprovalScreen: true
+staticClients:
+  - id: colabsign-teste
+    name: ColabSign (teste)
+    secret: segredo-de-teste-do-dex-nao-usar
+    redirectURIs:
+      - http://127.0.0.1:3000/api/auth/callback/sso
+enablePasswordDB: true
+staticPasswords:
+  # senha: colabsign-teste (bcrypt)
+  - email: ana.ficticia@example.com
+    hash: "$2a$10$ukhuaQKGO2om.jX0Jx1tVOTwYh9X9lcEn3fWCuVi7potPou.aC0.."
+    username: ana
+    userID: 4f1c2b9e-0000-4000-8000-000000000001

@@ -1,0 +1,90 @@
+# ColabSign: app + Postgres + agendador, para as nossas VPS.
+#
+#   cp colab/.env.example colab/.env    # e preencha
+#   docker compose -f colab/compose.yml --env-file colab/.env up -d --build
+#
+# O app só escuta em 127.0.0.1; o Caddy/Nginx da VPS faz o HTTPS na frente.
+name: colabsign
+
+x-app-env: &app-env
+  DATABASE_URL: postgres://colabsign:${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD}@db:5432/colabsign
+  APP_URL: ${APP_URL:?defina APP_URL}
+  BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?defina BETTER_AUTH_SECRET}
+  RETENTION_JOB_SECRET: ${RETENTION_JOB_SECRET:?defina RETENTION_JOB_SECRET}
+  SETUP_TOKEN: ${SETUP_TOKEN:-}
+  STORAGE_DRIVER: local
+  STORAGE_LOCAL_DIR: /data/storage
+  # E-mail (ver COLABSIGN.md, "E-mail"): Resend por padrão.
+  EMAIL_DRIVER: ${EMAIL_DRIVER:-}
+  EMAIL_CAPTURE_DIR: /data/outbox
+  RESEND_API_KEY: ${RESEND_API_KEY:-}
+  RESEND_REGION: ${RESEND_REGION:-sa-east-1}
+  # Login pelo ColabAuth (WorkOS AuthKit) via OIDC; vazio = só senha.
+  SSO_ISSUER: ${SSO_ISSUER:-}
+  SSO_CLIENT_ID: ${SSO_CLIENT_ID:-}
+  SSO_CLIENT_SECRET: ${SSO_CLIENT_SECRET:-}
+  SSO_NAME: ${SSO_NAME:-ColabAuth}
+  PASSWORD_SIGN_IN: ${PASSWORD_SIGN_IN:-}
+  PASSWORD_SIGN_IN_ALLOWED_EMAILS: ${PASSWORD_SIGN_IN_ALLOWED_EMAILS:-}
+  WEBHOOK_ALLOW_PRIVATE_URLS: ${WEBHOOK_ALLOW_PRIVATE_URLS:-}
+
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: colabsign
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: colabsign
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U colabsign -d colabsign"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  app:
+    image: ${COLABSIGN_IMAGE:-colabsign:local}
+    build:
+      context: ..
+      dockerfile: colab/Dockerfile
+    restart: unless-stopped
+    command: ["start"]
+    environment: *app-env
+    volumes:
+      - data:/data
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/auth/ok').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 15s
+      timeout: 5s
+      start_period: 60s
+      retries: 5
+
+  scheduler:
+    image: ${COLABSIGN_IMAGE:-colabsign:local}
+    restart: unless-stopped
+    command: ["scheduler"]
+    environment:
+      SCHEDULER_TARGET_URL: http://app:3000
+      RETENTION_JOB_SECRET: ${RETENTION_JOB_SECRET}
+      RETENTION_AT_UTC: ${RETENTION_AT_UTC:-09:00}
+      WEBHOOKS_EVERY_MINUTES: ${WEBHOOKS_EVERY_MINUTES:-5}
+    depends_on:
+      app:
+        condition: service_healthy
+
+volumes:
+  db:
+  data:

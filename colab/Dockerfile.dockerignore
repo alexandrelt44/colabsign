@@ -1,0 +1,14 @@
+# Usado pelo BuildKit para colab/Dockerfile (o contexto é a raiz do repo).
+.git
+.github
+.next
+.data
+node_modules
+test-results
+playwright-report
+e2e
+.env
+.env.*
+!.env.example
+colab/test
+*.tsbuildinfo
