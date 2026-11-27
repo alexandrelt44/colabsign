@@ -61,6 +61,67 @@ const EMAILS = `({
 
 export default {
 
+  // Datas do painel: pt-BR, fuso de São Paulo.
+  "src/lib/envelopes.ts": [
+    ['new Intl.DateTimeFormat("en-US", {', 'new Intl.DateTimeFormat("pt-BR", {', 3],
+    ['timeZone: "UTC",', `timeZone: ${FUSO},`, 3],
+    [
+      '`${pluralize(signers.length, "signer")} · ${pluralize(fields.length, "field")} placed`',
+      '`${pluralize(signers.length, "signatário")} · ${pluralize(fields.length, "campo")}`',
+    ],
+  ],
+  "src/lib/templates.ts": [
+    ['new Intl.DateTimeFormat("en-US", {', 'new Intl.DateTimeFormat("pt-BR", {'],
+    ['timeZone: "UTC",', `timeZone: ${FUSO},`],
+  ],
+  "src/app/(app)/envelopes/[id]/page.tsx": [
+    ['new Intl.DateTimeFormat("en-US", {', 'new Intl.DateTimeFormat("pt-BR", {'],
+    ['timeZone: "UTC",', `timeZone: ${FUSO},`],
+  ],
+  "src/lib/envelope-deletion.ts": [
+    [
+      'return new Date(timestamp * 1000).toISOString().slice(0, 10);',
+      `return new Intl.DateTimeFormat("pt-BR", { timeZone: ${FUSO}, day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(timestamp * 1000));`,
+    ],
+  ],
+  "src/lib/retention.ts": [
+    [
+      'return new Date(timestamp * 1000).toISOString().slice(0, 10);',
+      `return new Intl.DateTimeFormat("pt-BR", { timeZone: ${FUSO}, day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(timestamp * 1000));`,
+    ],
+  ],
+
+  // O filtro do painel usa "All", "Draft"... como valores (tipo
+  // DashboardFilter); só o que aparece na tela é traduzido.
+  "src/components/dashboard/dashboard-documents-surface.tsx": [
+    [
+      `const statusLabelMap: Record<EnvelopeStatus, string> = {
+  completed: "Completed",
+  declined: "Declined",
+  draft: "Draft",
+  sent: "Sent",
+  voided: "Voided",
+};`,
+      `const statusLabelMap: Record<EnvelopeStatus, string> = {
+  completed: "Concluído",
+  declined: "Recusado",
+  draft: "Rascunho",
+  sent: "Enviado",
+  voided: "Cancelado",
+};
+const COLAB_FILTRO_PT: Record<string, string> = {
+  All: "Todos",
+  Completed: "Concluídos",
+  Declined: "Recusados",
+  Draft: "Rascunhos",
+  Sent: "Enviados",
+  Voided: "Cancelados",
+};`,
+    ],
+    ["{filter}\n                </span>", "{COLAB_FILTRO_PT[filter] ?? filter}</span>"],
+    ["{filter}\n              </button>", "{COLAB_FILTRO_PT[filter] ?? filter}</button>"],
+  ],
+
   // Palavras soltas em minúsculas: no glossário elas poderiam pegar valores
   // de código (status, tipos), então vão aqui, com o trecho inteiro.
   "src/lib/services/signing-invitation-email.ts": [

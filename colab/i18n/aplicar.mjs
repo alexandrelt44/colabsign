@@ -126,6 +126,7 @@ function isCssClasses(text) {
 /** Parece texto para pessoas (e não um identificador, classe CSS ou caminho)? */
 function looksHuman(raw) {
   if (/^(SELECT|INSERT|UPDATE|DELETE|WITH|CREATE|ALTER|DROP)\s/i.test(raw.trim())) return false; // SQL
+  if (/\$\d|\b(EXISTS \(|LIKE|IS NULL|IS NOT|CASE WHEN|FOR NO KEY)\b|\bAS "[a-zA-Z]+"|^\(?[a-z_]+ = \$/.test(raw)) return false; // trecho de SQL
   const text = raw.replace(/\$\{[^}]*\}/g, "").replace(/<[^>]*>?/g, " ").replace(/^[^<]*>/, " ").trim();
   if (/[áàâãéêíóôõúç]/i.test(text)) return false; // já está em português (trocas.mjs)
   if (!/[A-Za-z]{2,}/.test(text)) return false;
@@ -363,7 +364,8 @@ for (const [key, places] of await comparedTexts()) {
     erros.push(`glossário: "${key}" é comparado no código (${where}); não pode ser traduzido (use uma entrada por arquivo, se for seguro)`);
   }
   for (const p of places) {
-    if (porArquivo.get(p.file)?.has(key)) {
+    const local = porArquivo.get(p.file);
+    if (local?.has(key) && local.get(key) !== key) {
       erros.push(`glossário de ${p.file}: "${key}" é comparado nesse mesmo arquivo (linha ${p.line})`);
     }
   }
