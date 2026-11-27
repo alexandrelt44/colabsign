@@ -1,0 +1,12 @@
+[
+  "SignuDoc",
+  "SHA-256",
+  "SHA-256:",
+  "\"Snell Roundhand\", \"Brush Script MT\", \"Segoe Script\", cursive",
+  "FOR NO KEY UPDATE OF e",
+  "Completed signer records must include an id.",
+  "Signer checks need an auth secret: set BETTER_AUTH_SECRET or a database password.",
+  "Signing with a provider needs the install's public address (APP_URL).",
+  "Field ${placedField.id} references missing page ${placedField.page}.",
+  "America/Sao_Paulo"
+]
