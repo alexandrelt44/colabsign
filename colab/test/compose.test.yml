@@ -1,0 +1,44 @@
+# ColabSign: teste na vps-wp-old (tudo em 127.0.0.1, dados fictícios).
+#
+#   docker compose -f colab/compose.yml -f colab/test/compose.test.yml \
+#     --env-file colab/test/test.env up -d --build
+#
+# - e-mail pelo driver de captura (JSON em /data/outbox), permitido porque o
+#   APP_URL é 127.0.0.1;
+# - Dex como provedor OIDC de teste, no lugar do ColabAuth/WorkOS;
+# - um receptor de webhooks que confere a assinatura e grava cada evento.
+# Caminhos relativos a colab/ (pasta do primeiro arquivo -f).
+# Dex e receptor usam a rede do app, então para o app eles estão em
+# 127.0.0.1:5556 e 127.0.0.1:4000, e o navegador da VPS os alcança pelas
+# portas publicadas abaixo.
+services:
+  app:
+    environment:
+      EMAIL_DRIVER: capture
+      WEBHOOK_ALLOW_PRIVATE_URLS: "1"
+      SSO_ISSUER: http://127.0.0.1:5556/dex
+      SSO_CLIENT_ID: colabsign-teste
+      SSO_CLIENT_SECRET: segredo-de-teste-do-dex-nao-usar
+      SSO_NAME: ColabAuth (teste)
+    ports:
+      - "127.0.0.1:5556:5556"
+      - "127.0.0.1:4000:4000"
+
+  dex:
+    image: ghcr.io/dexidp/dex:v2.41.1
+    network_mode: service:app
+    command: ["dex", "serve", "/etc/dex/config.yml"]
+    volumes:
+      - ./test/dex.yml:/etc/dex/config.yml:ro
+
+  webhook-receiver:
+    image: node:24-bookworm-slim
+    network_mode: service:app
+    command: ["node", "/srv/webhook-receiver.mjs"]
+    environment:
+      PORT: "4000"
+      OUT: /out/webhooks.jsonl
+      SECRET_FILE: /out/whsec
+    volumes:
+      - ./test/webhook-receiver.mjs:/srv/webhook-receiver.mjs:ro
+      - ./test/out:/out

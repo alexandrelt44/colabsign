@@ -1,0 +1,555 @@
+{
+  "_sobre": "Entregas reais recebidas pelo receptor de teste na vps-wp-old em 27/11/2026 (dados fictícios). Assinatura conferida no receptor: 'valida' em todas. O cabeçalho webhook-signature foi omitido.",
+  "entregas": [
+    {
+      "recebidoEm": "2026-11-27T18:41:42.831Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_20d9c95d673a4400a660f5c8a882a739",
+        "webhook-timestamp": "1795804902",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "message": "A test event from SignuDoc. No envelope changed."
+        },
+        "timestamp": "2026-11-27T18:41:42.000Z",
+        "type": "webhook.test"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:42:09.806Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_736a3b7a64e046d99812d14355194ac9",
+        "webhook-timestamp": "1795804929",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": null,
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": null,
+              "signed": null
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": null,
+                "status": "notified",
+                "step": 1,
+                "viewedAt": null
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": null,
+                "status": "pending",
+                "step": 2,
+                "viewedAt": null
+              }
+            ],
+            "status": "sent",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          },
+          "signer": {
+            "declinedAt": null,
+            "declineReason": null,
+            "email": "bruno.ficticio@example.com",
+            "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+            "name": "Bruno Fictício",
+            "order": 1,
+            "ref": "contratante",
+            "role": "signer",
+            "signedAt": null,
+            "status": "notified",
+            "step": 1,
+            "viewedAt": null
+          }
+        },
+        "timestamp": "2026-11-27T18:42:09.000Z",
+        "type": "envelope.sent"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:42:23.400Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_b3f272a305954353ba11b00ac1e2a47e",
+        "webhook-timestamp": "1795804943",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": null,
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": null,
+              "signed": null
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": null,
+                "status": "notified",
+                "step": 1,
+                "viewedAt": "2026-11-27T18:42:23.000Z"
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": null,
+                "status": "pending",
+                "step": 2,
+                "viewedAt": null
+              }
+            ],
+            "status": "sent",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          },
+          "signer": {
+            "declinedAt": null,
+            "declineReason": null,
+            "email": "bruno.ficticio@example.com",
+            "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+            "name": "Bruno Fictício",
+            "order": 1,
+            "ref": "contratante",
+            "role": "signer",
+            "signedAt": null,
+            "status": "notified",
+            "step": 1,
+            "viewedAt": "2026-11-27T18:42:23.000Z"
+          }
+        },
+        "timestamp": "2026-11-27T18:42:23.000Z",
+        "type": "signer.viewed"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:44:24.997Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_7581d50abbd14113a20f21c52e9146a6",
+        "webhook-timestamp": "1795805064",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": null,
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": null,
+              "signed": null
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:24.000Z",
+                "status": "signed",
+                "step": 1,
+                "viewedAt": "2026-11-27T18:42:23.000Z"
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": null,
+                "status": "notified",
+                "step": 2,
+                "viewedAt": null
+              }
+            ],
+            "status": "sent",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          },
+          "signer": {
+            "declinedAt": null,
+            "declineReason": null,
+            "email": "bruno.ficticio@example.com",
+            "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+            "name": "Bruno Fictício",
+            "order": 1,
+            "ref": "contratante",
+            "role": "signer",
+            "signedAt": "2026-11-27T18:44:24.000Z",
+            "status": "signed",
+            "step": 1,
+            "viewedAt": "2026-11-27T18:42:23.000Z"
+          }
+        },
+        "timestamp": "2026-11-27T18:44:24.000Z",
+        "type": "signer.signed"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:44:39.373Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_8b6cd00b30434515ad405ac57232d57b",
+        "webhook-timestamp": "1795805079",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": null,
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": null,
+              "signed": null
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:24.000Z",
+                "status": "signed",
+                "step": 1,
+                "viewedAt": "2026-11-27T18:42:23.000Z"
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": null,
+                "status": "notified",
+                "step": 2,
+                "viewedAt": "2026-11-27T18:44:39.000Z"
+              }
+            ],
+            "status": "sent",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          },
+          "signer": {
+            "declinedAt": null,
+            "declineReason": null,
+            "email": "carla.ficticia@example.com",
+            "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+            "name": "Carla Fictícia",
+            "order": 2,
+            "ref": "contratada",
+            "role": "signer",
+            "signedAt": null,
+            "status": "notified",
+            "step": 2,
+            "viewedAt": "2026-11-27T18:44:39.000Z"
+          }
+        },
+        "timestamp": "2026-11-27T18:44:39.000Z",
+        "type": "signer.viewed"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:44:52.957Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_3fe75bf1a7f9434dbe7f4be73be186ff",
+        "webhook-timestamp": "1795805092",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": "2026-11-27T18:44:51.000Z",
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": "/api/v1/envelopes/fc9a0275-4d38-43ef-a06e-79210b10bf67/files/certificate",
+              "signed": "/api/v1/envelopes/fc9a0275-4d38-43ef-a06e-79210b10bf67/files/signed"
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:24.000Z",
+                "status": "signed",
+                "step": 1,
+                "viewedAt": "2026-11-27T18:42:23.000Z"
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:51.000Z",
+                "status": "signed",
+                "step": 2,
+                "viewedAt": "2026-11-27T18:44:39.000Z"
+              }
+            ],
+            "status": "completed",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          },
+          "signer": {
+            "declinedAt": null,
+            "declineReason": null,
+            "email": "carla.ficticia@example.com",
+            "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+            "name": "Carla Fictícia",
+            "order": 2,
+            "ref": "contratada",
+            "role": "signer",
+            "signedAt": "2026-11-27T18:44:51.000Z",
+            "status": "signed",
+            "step": 2,
+            "viewedAt": "2026-11-27T18:44:39.000Z"
+          }
+        },
+        "timestamp": "2026-11-27T18:44:51.000Z",
+        "type": "signer.signed"
+      }
+    },
+    {
+      "recebidoEm": "2026-11-27T18:44:53.000Z",
+      "assinatura": "valida",
+      "cabecalhos": {
+        "content-type": "application/json",
+        "user-agent": "SignuDoc-Webhooks/1",
+        "webhook-id": "msg_90674af38f84479589041d8a22feb0b6",
+        "webhook-timestamp": "1795805092",
+        "webhook-signature": "v1,<omitida>"
+      },
+      "corpo": {
+        "data": {
+          "envelope": {
+            "completedAt": "2026-11-27T18:44:51.000Z",
+            "copyRecipients": [],
+            "createdAt": "2026-11-27T18:42:09.000Z",
+            "declinedAt": null,
+            "delivery": "email",
+            "expired": false,
+            "expiresAt": "2026-12-11T18:42:09.000Z",
+            "files": {
+              "certificate": "/api/v1/envelopes/fc9a0275-4d38-43ef-a06e-79210b10bf67/files/certificate",
+              "signed": "/api/v1/envelopes/fc9a0275-4d38-43ef-a06e-79210b10bf67/files/signed"
+            },
+            "id": "fc9a0275-4d38-43ef-a06e-79210b10bf67",
+            "metadata": {
+              "origem": "teste-t1",
+              "proposta": "PR-0001"
+            },
+            "object": "envelope",
+            "pageCount": 1,
+            "sentAt": "2026-11-27T18:42:09.000Z",
+            "signatureLevel": "simple",
+            "signers": [
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "bruno.ficticio@example.com",
+                "id": "10653bdf-deab-4bb4-82a1-99b1f332dd26",
+                "name": "Bruno Fictício",
+                "order": 1,
+                "ref": "contratante",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:24.000Z",
+                "status": "signed",
+                "step": 1,
+                "viewedAt": "2026-11-27T18:42:23.000Z"
+              },
+              {
+                "declinedAt": null,
+                "declineReason": null,
+                "email": "carla.ficticia@example.com",
+                "id": "9663825d-dffd-4036-8376-6d944d7867e9",
+                "name": "Carla Fictícia",
+                "order": 2,
+                "ref": "contratada",
+                "role": "signer",
+                "signedAt": "2026-11-27T18:44:51.000Z",
+                "status": "signed",
+                "step": 2,
+                "viewedAt": "2026-11-27T18:44:39.000Z"
+              }
+            ],
+            "status": "completed",
+            "title": "Contrato de teste ColabSign",
+            "voidedAt": null
+          },
+          "owner": {
+            "email": "ana.ficticia@example.com",
+            "id": "naU94xTfWhGY7UwAsykQPt2G4ARfsgS2",
+            "name": "Ana Fictícia"
+          }
+        },
+        "timestamp": "2026-11-27T18:44:51.000Z",
+        "type": "envelope.completed"
+      }
+    }
+  ]
+}
