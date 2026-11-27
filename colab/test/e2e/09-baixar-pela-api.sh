@@ -2,11 +2,11 @@
 # Baixa pela API o PDF assinado e o certificado do envelope do teste, e a
 # lista de eventos. A chave vai por -H @arquivo (fora da linha de comando).
 set -euo pipefail
-OUT=/root/colabsign-test/out
+OUT=${TESTE_DIR:-/root/colabsign-test}/out
 H=$(mktemp); chmod 600 "$H"; trap 'rm -f "$H"' EXIT
-printf 'Authorization: Bearer %s\n' "$(cat /root/colabsign-test/secrets/api-key)" > "$H"
+printf 'Authorization: Bearer %s\n' "$(cat ${TESTE_DIR:-/root/colabsign-test}/secrets/api-key)" > "$H"
 API=http://127.0.0.1:3000/api/v1
-ID=$(/opt/node22/bin/node -p 'require("/root/colabsign-test/out/api-envelope-criado.json").id')
+ID=$(/opt/node22/bin/node -p 'require(process.argv[1]).id' "$OUT/api-envelope-criado.json")
 curl -s "$API/envelopes/$ID" -H @"$H" > "$OUT/api-envelope-final.json"
 curl -s "$API/envelopes/$ID/events" -H @"$H" > "$OUT/api-envelope-eventos.json"
 for f in signed certificate; do

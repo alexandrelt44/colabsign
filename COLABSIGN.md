@@ -23,6 +23,7 @@ atualização do upstream não tem conflito.
 | `colab/brand/colabsign-logo.png`           | Logo (marca do ColabOS + "ColabSign") para subir em Settings › Organization.                               |
 | `colab/docs/webhook-payloads-exemplo.json` | Entregas reais de webhook do teste (para a T6).                                                            |
 | `colab/test/*`                             | Teste na vps-wp-old: compose extra (Dex, receptor de webhooks, e-mail capturado) e roteiros do Playwright. |
+| `colab/i18n/*`                             | Tradução para português do Brasil, aplicada no build da imagem (seção "Português").                         |
 | `.github/workflows/colab-image.yml`        | Constrói a imagem no PR e publica em `ghcr.io/alexandrelt44/colabsign` na main.                            |
 
 ## Rodar em Docker
@@ -64,15 +65,15 @@ docker run --rm -v colabsign_data:/data -v "$PWD":/b alpine tar czf /b/colabsign
 
 O SignuDoc já tem SSO OIDC (`src/lib/auth/sso.ts`); basta configurar.
 
-**No WorkOS (ambiente de produção, quem cria é o Alexandre):** criar um app
-OAuth/OIDC igual ao do ColabTasks:
-
-1. WorkOS › Applications › Create application (OAuth, aplicação própria).
-2. Redirect URI: `https://<domínio do ColabSign>/api/auth/callback/sso`
-   (confirmado no teste; o comentário em `sso.ts` fala em
-   `/oauth2/callback/sso`, mas o caminho real é o da doc do upstream).
-3. Escopos: `openid profile email`.
-4. Copiar Client ID e Client Secret.
+**No WorkOS de produção: já criado (27/11/2026, T1b).** App OAuth de
+primeira parte "ColabSign (produção)" (`connect_app_01M8F6CT2REFDE3YA9K32MW3WK`),
+igual ao do ColabTasks, com redirect
+`https://sign.colaborato.rio/api/auth/callback/sso` (o comentário em
+`sso.ts` fala em `/oauth2/callback/sso`, mas o caminho real é este). As
+`SSO_*` prontas para o `.env` estão no Mac em
+`~/.config/colabsign/workos-prod.env` (permissão 600). O AuthKit já aceita o
+client e o redirect (o início do login responde 302 para a tela do
+ColabAuth); o login completo só dá para provar com o DNS no ar.
 
 **No `.env` do ColabSign:**
 
@@ -87,8 +88,10 @@ PASSWORD_SIGN_IN_ALLOWED_EMAILS=<e-mail do admin>
 ```
 
 Como funciona: quem entra pela primeira vez ganha conta conforme a regra de
-cadastro (Settings › Organization › Who can create an account; deixe só o
-domínio `colaborato.rio`). Quem já tem conta com o mesmo e-mail entra nela,
+cadastro (Settings › Organization › Who can create an account). **Só
+membros:** o SignuDoc não tem convite de usuários, então a regra é
+"domínios" com `colaborato.rio` e `desenro.la` (quem tem conta no WorkOS
+de produção e e-mail desses domínios). Quem já tem conta com o mesmo e-mail entra nela,
 **desde que o WorkOS mande `email_verified: true` no ID token** (o app exige;
 conferir no primeiro login em produção). O SSO não passa pela verificação em
 duas etapas do app: a do WorkOS vale. O issuer precisa ser `https://`
@@ -113,7 +116,15 @@ selado e o certificado anexos) dependem disso.
 | **Driver SMTP no fork** (serve Brevo, SES, Google Workspace, Mailpit) | `nodemailer`, um driver novo em `email.ts`, um estado novo em `email-status.ts` e na tela `organization-settings.tsx` (que hoje só conhece Resend), remetente sem a verificação automática de domínio, testes.                   | ~1 dia.                                                                                                               | Mexe em 3–4 arquivos centrais do upstream: conflito a cada atualização. |
 | **Brevo**                                                             | Via SMTP (depende do driver acima) ou driver HTTP próprio (mesmo esforço, ainda mais específico). Domínio verificado no Brevo.                                                                                                   | ~1 dia + DNS. Grátis até 300/dia.                                                                                     | Igual ao SMTP.                                                          |
 
-Decisão desta tarefa: **não implementei o driver SMTP**, porque ele não fica
+**Pronto para o Resend (T1b):** o compose passa `RESEND_FROM_EMAIL`
+(remetente, padrão no `.env.example`: `ColabSign <assinar@colaborato.rio>`)
+e `SUPPORT_EMAIL` (para onde vão as respostas; confirmar a caixa). Quando a
+conta existir: criar a chave "Full access", verificar o domínio
+`colaborato.rio` no Resend (registros SPF/DKIM no Cloudflare), pôr
+`RESEND_API_KEY` no `.env`, subir e usar "Send test email" em Settings ›
+Organization. Os textos dos e-mails já saem em português.
+
+Decisão da T1: **não implementei o driver SMTP**, porque ele não fica
 pequeno nem isolado (toca a tela e o estado do e-mail, não só o envio). O
 Mailpit da vps-infra não entrega para fora, então não serve para produção.
 Recomendo o Resend com o domínio colaborato.rio, que não muda o fork.
@@ -165,10 +176,10 @@ quando atualizar.
 
 ## Pontos de atenção
 
-- **Idioma:** o SignuDoc é só em inglês (telas, e-mails e datas do PDF,
-  `Intl.DateTimeFormat("en-US")`). Signatários brasileiros vão ver tudo em
-  inglês. Traduzir é trabalho grande e espalhado pelo upstream; fica como
-  decisão à parte.
+- **Idioma:** a imagem sai em português (seção abaixo). Ainda em inglês:
+  as telas de Settings (organização, segurança, webhooks, chaves de API,
+  pessoas, equipes, atualizações), a documentação da API e as páginas
+  /terms e /privacy do serviço hospedado (não usadas aqui).
 - **Selo:** sem `SEAL_P12_BASE64`, o app cria um certificado autoassinado
   ("ColabSign document seal"). O PDF selado valida (`pdfsig`: "Signature is
   Valid"), mas leitores mostram "emissor desconhecido". Para selo confiável,
@@ -209,10 +220,61 @@ o outbox do e-mail capturado em `/root/colabsign-test/outbox`.)
 4. `docker compose up -d`; abrir `/setup` com o `SETUP_TOKEN`, criar a
    organização e o admin; aplicar a marca (seção Marca).
 5. E-mail: Resend com o domínio (seção E-mail) e "Send test email".
-6. WorkOS: criar o app OIDC, pôr as `SSO_*`, testar, depois
-   `PASSWORD_SIGN_IN=off`.
+6. WorkOS: o app já existe; copiar as `SSO_*` de
+   `~/.config/colabsign/workos-prod.env` para o `.env`, testar o login,
+   depois `PASSWORD_SIGN_IN=off`.
 7. Conta "Backoffice" (admin), chave de API e webhook para o Backoffice (T6).
 8. Backup diário (seção Backup).
+
+## Português (pt-BR)
+
+O SignuDoc não tem estrutura de idiomas. Para não alterar o upstream (e não
+ter conflito a cada atualização), a tradução é aplicada **na hora do build
+da imagem**, numa cópia do código: `colab/Dockerfile` roda
+`node colab/i18n/aplicar.mjs` antes do `next build`. Nada muda no git.
+
+- `colab/i18n/pt-BR/*.json`: glossário inglês → português. `por-arquivo.json`
+  tem entradas que valem só num arquivo (palavras curtas que em outro lugar
+  podem ser valores de código; uma entrada igual ao original impede a
+  tradução naquele arquivo).
+- `colab/i18n/trocas.mjs`: trocas exatas de trechos de código (datas em
+  pt-BR no fuso `America/Sao_Paulo`, "(horário de Brasília)" no
+  certificado, rótulos montados a partir de códigos internos, versão do
+  aviso de documentos eletrônicos `2026-11-13-pt-BR`).
+- `colab/i18n/escopo.json`: arquivos que o glossário percorre.
+- `colab/i18n/ignorar.json`: textos em inglês que não aparecem para
+  ninguém (logs, SQL, cabeçalhos de API).
+
+O script lê cada arquivo com o parser do TypeScript e só troca texto de
+tela: texto de JSX, atributos como title/label/placeholder e textos entre
+aspas. Nunca troca texto usado em comparação (`===`, `case`, `.includes`),
+chaves de objeto, tipos ou atributos técnicos; se algum texto do glossário
+for comparado em qualquer lugar de `src/`, o build para. O build também
+para se uma troca de `trocas.mjs` não for achada (o upstream mudou o
+trecho), e a checagem de tipos do `next build` pega rótulos que viraram
+tipos literais.
+
+```sh
+node colab/i18n/aplicar.mjs --check --faltando   # lista o que falta traduzir
+node colab/i18n/aplicar.mjs --check --estrito    # falha se faltar (CI)
+docker build -f colab/Dockerfile --build-arg COLAB_LANG=en .   # SignuDoc em inglês
+```
+
+A imagem também define `TZ=America/Sao_Paulo`. Inglês continua disponível
+como imagem separada (`COLAB_LANG=en`); não dá para trocar de idioma por
+usuário, porque o upstream não tem essa estrutura.
+
+**Custo de manter:** a cada release do upstream, o CI (`colab-image.yml`)
+roda a checagem estrita e o build. Frase nova ou alterada aparece na lista
+do `--faltando`; acrescente no glossário (minutos por release, conforme o
+tamanho da mudança). Nenhum arquivo do upstream foi tocado; a tradução
+alcança 91 arquivos na cópia do build.
+
+**Páginas legais do signatário** (aviso de privacidade, "Assinaturas
+eletrônicas"): traduzidas com as referências ao GDPR trocadas pelas da LGPD
+e a lista de provedores ajustada (servidor próprio + Resend). Precisam de
+revisão jurídica; o ideal é pôr a política do Colaboratório em Settings ›
+Organization (Privacy URL).
 
 ## Atualizar do upstream
 

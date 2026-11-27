@@ -1,0 +1,92 @@
+{
+  "src/components/signing/signing-live-shell.tsx": {
+    "Signature": "Assinatura",
+    "From": "De"
+  },
+  "src/components/dashboard/dashboard-documents-surface.tsx": {
+    "of": "de",
+    "envelopes": "documentos",
+    "on this page": "nesta página",
+    "All": "All",
+    "Draft": "Draft",
+    "Sent": "Sent",
+    "Completed": "Completed",
+    "Declined": "Declined",
+    "Voided": "Voided"
+  },
+  "src/components/dashboard/dashboard-shell.tsx": {
+    "All": "All"
+  },
+  "src/components/envelopes/upload-shell.tsx": {
+    "or": "ou"
+  },
+  "src/components/envelopes/review-shell.tsx": {
+    "days.": "dias.",
+    "to act": "agir",
+    "to sign": "assinar",
+    "pages -": "página(s) -",
+    "days": "dias"
+  },
+  "src/components/envelopes/prepare-live-shell.tsx": {
+    "Signature": "Assinatura",
+    "Delete": "Excluir",
+    "for": "para",
+    "field": "campo",
+    "placed": "colocado(s)"
+  },
+  "src/lib/upload-validation.ts": {
+    "this pdf is password-protected or encrypted. please upload an unlocked pdf.": "este pdf tem senha ou está criptografado. envie um pdf sem bloqueio.",
+    "only pdf files are supported. please upload a valid pdf.": "só aceitamos arquivos pdf. envie um pdf válido.",
+    "this file exceeds the 20 mb limit.": "este arquivo passa do limite de 20 mb.",
+    "this pdf has more than ${String(MAX_PDF_PAGES)} pages. split it into smaller documents.": "este pdf tem mais de ${String(MAX_PDF_PAGES)} páginas. divida em documentos menores.",
+    "we couldn't read this pdf. please upload a valid file.": "não conseguimos ler este pdf. envie um arquivo válido.",
+    "this pdf uses an unsupported format. please export it as a standard pdf.": "este pdf usa um formato sem suporte. exporte-o como pdf comum.",
+    "a pdf file is required.": "envie um arquivo pdf.",
+    "the upload could not be read. choose the pdf again and retry.": "não foi possível ler o envio. escolha o pdf de novo e tente outra vez."
+  },
+  "src/components/templates/bulk-send-shell.tsx": {
+    "envelope": "documento",
+    "envelopes": "documentos",
+    "row": "linha",
+    "rows": "linhas",
+    "${name} name, ${name} email": "${name} name, ${name} email",
+    "sent": "enviado(s)",
+    "days": "dias"
+  },
+  "src/components/templates/templates-shell.tsx": {
+    "Delete": "Excluir",
+    "Delete this template?": "Excluir este modelo?"
+  },
+  "src/lib/envelopes.ts": {
+    "Checkbox": "Checkbox",
+    "Date": "Date",
+    "Dropdown": "Dropdown",
+    "Initials": "Initials",
+    "Name": "Name",
+    "Number": "Number",
+    "Text": "Text"
+  },
+  "src/lib/two-factor-view.ts": {
+    "Managed by identity provider": "Managed by identity provider",
+    "On": "On",
+    "Off": "Off"
+  },
+  "src/components/auth/login-shell.tsx": {
+    "or": "ou",
+    "Create a new password": "Crie uma senha nova"
+  },
+  "src/components/auth/signup-shell.tsx": {
+    "Create account": "Criar conta",
+    "Create your account": "Crie sua conta",
+    "or": "ou"
+  },
+  "src/components/envelopes/envelope-detail-shell.tsx": {
+    "events": "eventos",
+    "Delete draft": "Excluir rascunho",
+    "Delete envelope": "Excluir documento",
+    "total": "no total"
+  },
+  "src/components/envelopes/signers-shell.tsx": {
+    "(optional)": "(opcional)"
+  }
+}

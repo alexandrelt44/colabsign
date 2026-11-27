@@ -8,6 +8,7 @@ on:
   pull_request:
     paths:
       - "colab/**"
+      - "src/**"
       - "package.json"
       - "package-lock.json"
       - "next.config.ts"
@@ -25,6 +26,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # A tradução pt-BR (colab/i18n) acompanha o upstream: falha se uma frase
+  # nova ou alterada ficou sem tradução ou se uma troca não casa mais.
+  i18n:
+    name: ColabSign pt-BR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund --ignore-scripts
+      - run: node colab/i18n/aplicar.mjs --check --estrito --faltando
+
   image:
     name: Build ColabSign image
     runs-on: ubuntu-latest

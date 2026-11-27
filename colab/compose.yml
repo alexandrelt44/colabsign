@@ -18,6 +18,10 @@ x-app-env: &app-env
   EMAIL_DRIVER: ${EMAIL_DRIVER:-}
   EMAIL_CAPTURE_DIR: /data/outbox
   RESEND_API_KEY: ${RESEND_API_KEY:-}
+  # Remetente e e-mail de suporte; quando definidos, valem mais que os da tela
+  # Settings › Organization.
+  RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL:-}
+  SUPPORT_EMAIL: ${SUPPORT_EMAIL:-}
   RESEND_REGION: ${RESEND_REGION:-sa-east-1}
   # Login pelo ColabAuth (WorkOS AuthKit) via OIDC; vazio = só senha.
   SSO_ISSUER: ${SSO_ISSUER:-}
